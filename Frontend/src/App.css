@@ -94,3 +94,57 @@ main{
 .icon, .link_text{
   font-size: 20px;
 }
+
+/* contact page */
+.contact-container{
+  display: flex;
+  justify-content: space-between;
+}
+
+.contact form{
+  text-align: center;
+  max-width: 50rem;
+  margin: 1rem auto;
+  margin-bottom: 3rem;
+}
+
+.contact-form input,
+.contact-form textarea{
+    width: 100%;
+    margin-bottom: 0.8rem;
+    border: none;
+    border-radius: 5px;
+    padding: 0.7rem;
+    background-image: linear-gradient(to bottom right, rgb(209, 235, 233), rgb(204, 237, 235));
+}
+
+.contact form textarea{
+  resize: none;
+}
+
+.formBtn{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 3px;
+  border-radius: 3px;
+}
+.btn{
+  padding: 8px;
+  border-radius: 5px;
+  background: rgb(41, 177, 255);;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: white;
+}
+
+.btn:hover{
+  color: white;
+  background: rgb(84, 138, 204);
+}
+
+.contact-image img{
+    width: 60%;
+    margin-left: 53px;
+}
