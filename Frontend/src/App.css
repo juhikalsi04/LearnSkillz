@@ -150,6 +150,7 @@ main{
 .contact-image img{
     width: 60%;
     margin-left: 53px;
+
 }
 
 .start-test{
@@ -161,4 +162,6 @@ main{
   margin-top: 5%;
   margin-bottom: 5%;
   border-radius: 7%;
+/* ======= */
+/* >>>>>>> 45f172fdbcea1889ac447396663d6660909b73ca */
 }
