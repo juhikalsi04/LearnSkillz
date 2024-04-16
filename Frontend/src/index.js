@@ -1,14 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+// index.js or App.js (main entry file)
+import React, { StrictMode } from 'react';
+import ReactDOM from 'react-dom';
+
 
 import App from './App';
 
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
+ReactDOM.render(
+  <StrictMode>
     <App />
-  </React.StrictMode>
+  </StrictMode>,
+  document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function

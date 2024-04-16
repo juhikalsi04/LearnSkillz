@@ -1,11 +1,12 @@
 import React from 'react'
 
+
 const Home = () => {
   return (
     <div>
-      <h2><b>Welcome to LearnSkillz!</b></h2>
+      <h1><b>Welcome to LearnSkillz!</b></h1>
+      <hr/>
       <h3>Start your placement and interview prepration with LearnSkillz</h3>
-      <hr></hr>
      
     </div>
   )

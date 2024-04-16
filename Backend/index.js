@@ -1,18 +1,19 @@
-const express=require("express");
-const app=express();
+const express = require("express");
+const app = express();
+const port = 5000;
+const connectToMongo = require('./db');
+const fetchUser = require("./middleware/fetchUser");
+connectToMongo();
 
-app.get("/",(req,res)=>{
-   res.send("hello world from the server")
-})
+app.use(express.json())
 
-app.get("/about",(req,res)=>{
-   res.send("hello world from  about the server")
-})
+app.use('/api/discussion/post', require('./routes/post'))
+app.use('/api/discussion/post/user', require('./routes/user'))
+app.use('/api/discussion/auth', require('./routes/auth'))
+app.use('/api/discussion/reply', require('./routes/replies'))
+app.use('/api/discussion/tag', require('./routes/tags'))
+app.use('/api/onlinetest/sampletest', require('./routes/samplepaper'))
 
-app.get("/contact",(req,res)=>{
-   res.send("hello world from contact the server")
-})
-
-app.listen(3000,()=>{
-    console.log("server is running at port number 3000")
-})
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
