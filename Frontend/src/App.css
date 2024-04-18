@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   font-family: "Amazon Ember";
@@ -47,7 +51,8 @@ nav {
 }
 main{
   width: 100%;
-  padding: 20px;
+  /* margin-left: 7px; */
+  background-color: rgb(238, 243, 249);
 }
 
 .sidebar{
@@ -94,3 +99,137 @@ main{
 .icon, .link_text{
   font-size: 20px;
 }
+/*homepage  */
+/* .section-services{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  grid-gap:2rem;
+}
+.section-services  .service-box{
+  flex: 1 1 11rem;
+  padding: 2rem 1rem 2rem;
+  text-align: center;
+  background: rgba(11, 146, 250, 0.787);
+  transition: transform .4s;
+  border-radius: 8px;
+  color: rgb(15, 14, 14);
+}
+
+
+/* .service-box:hover{
+   transform: translateY(-.7rem);        
+} */
+
+.service-box h3{
+  /* margin-top: 10px; */
+  font-size: 1.5rem;
+}
+
+.service-box p{
+  margin: .5rem 0 1.5rem 0;
+  font-weight: 400;
+  letter-spacing: 1px;
+  color: black;
+  line-height: 1.6;
+  background-color: red;
+}
+
+.section-services .service-box ul {
+  list-style-type: none; /* Removes the bullet points */
+  padding: 0; /* Removes default padding */
+  line-height: 26px;
+} */
+
+
+/* contact page */
+.contact-container{
+  display: flex;
+  justify-content: space-between;
+}
+
+.contact form{
+  text-align: center;
+  max-width: 50rem;
+  margin: 1rem auto;
+  margin-bottom: 3rem;
+}
+
+.contact-form input,
+.contact-form textarea{
+    width: 100%;
+    margin-bottom: 0.8rem;
+    border: none;
+    border-radius: 5px;
+    padding: 0.7rem;
+    /* background-image: linear-gradient(to bottom right, rgb(209, 235, 233), rgb(204, 237, 235)); */
+    background-color: #e7e6e6;
+}
+
+.contact form textarea{
+  resize: none;
+}
+
+.formBtn{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 3px;
+  border-radius: 3px;
+}
+.btn{
+  padding: 8px;
+  border-radius: 5px;
+  background: rgb(41, 177, 255);;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: white;
+}
+
+.btn:hover{
+  color: white;
+  background: #6c68f0;
+}
+
+.contact-image img{
+    width: 60%;
+    margin-left: 53px;
+}
+
+
+/* about us page */
+.photo{
+  width: 100px;
+  height: 100px;
+  float: left;
+}
+
+.skill-row{
+  /* width: 73%; */
+  /* margin: auto; */
+  margin: 2px;
+  text-align: left;
+  line-height: 2;
+}
+
+.giphy1{
+  width: 30%;
+  float: right;
+  margin-left: 32px;
+}
+.skills .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* margin-bottom: 2rem;  */
+}
+.p-left{
+margin-left: 4px;
+margin-right: 40px;
+}
+
+
+
+
