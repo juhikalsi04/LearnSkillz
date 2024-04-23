@@ -5,7 +5,7 @@ import {
   FaBookOpen,
   FaBookmark,
   FaHome,
-  FaPhoneAlt,
+  FaPhoneAlt,FaTh,
   FaRegChartBar,
    FaUserAlt,
 } from "react-icons/fa"
@@ -40,26 +40,21 @@ const Sidebar = ({children}) => {
         name:"About",
         icon:<FaUserAlt/>
       },
-      {
-        path:"/contact",
-        name:"Contact",
-        icon:<FaPhoneAlt/>
-      },
     ]
 
   return (
   
      <div className='container'>
       <div style={{width:isOpen? "250px":"50px"}} className='sidebar'>
-        <div className='top_section'>
+        <div className='top_section mx-2 my-5'>
           <h1 style={{display:isOpen? "block":"none"}} className='logo'>LearnSkillz</h1>
-          <div style={{marginLeft:isOpen? "70px":"0px"}}className='bars'>
+          <div style={{marginLeft:isOpen? "80px":"0px"}}className='bars'>
               <FaBars onClick={toggle}/>
           </div>
         </div>
         {
           menuItem.map((item,index)=>(
-            <NavLink to={item.path} key={index} className="link" activeclassname="active" style={{textDecoration:"none"}}>
+            <NavLink to={item.path} key={index} className="link" activeclassname="active">
               <div className='icon'>{item.icon}</div>
               <div style={{display:isOpen? "block":"none"}}className='link_text'>{item.name}</div>
             </NavLink>          
@@ -75,3 +70,4 @@ const Sidebar = ({children}) => {
 }
 
 export default Sidebar
+

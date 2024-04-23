@@ -23,12 +23,12 @@ const OnlineTest = () => {
 
   return (
     <>
-    <div className='onlinetest'>
+    <div className='onlinetest font-poppins'>
 
 
-      <h1>Online Tests</h1>
-      <hr></hr>
-      <h2>Sample test papers</h2>
+      <h1 className='text-3xl font-bold p-4 '>Online Tests</h1>
+      <hr className="h-px bg-black border-0 mx-4"></hr>
+      <h2 className='text-xl  p-4 '>Sample test papers</h2>
       <br></br>
       
 
