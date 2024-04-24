@@ -23,26 +23,28 @@ const OnlineTest = () => {
 
   return (
     <>
-      <div className='onlinetest'>
+
+    <div className='onlinetest font-poppins'>
 
 
-        <h1>Online Tests</h1>
-        <hr></hr>
-        <h2>Sample test papers</h2>
-        <br></br>
+      <h1 className='text-3xl font-bold p-4 '>Online Tests</h1>
+      <hr className="h-px bg-black border-0 mx-4"></hr>
+      <h2 className='text-xl  p-4 '>Sample test papers</h2>
+      <br></br>
+      
 
+     
+                
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
+           <thead>
+          <tr>
+            <th scope="col" style={{ borderBottom: '1px solid #ddd', padding: '8px' }}></th>
+            <th scope="col" style={{ borderBottom: '1px solid #ddd', padding: '8px', textAlign: 'left' }}>Tests</th>
+            <th scope="col" style={{ borderBottom: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>Difficulty</th>
+            <th scope="col" style={{ borderBottom: '1px solid #ddd', padding: '8px' }}></th>
+          </tr>
+        </thead>
 
-
-
-        <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
-          <thead>
-            <tr>
-              <th scope="col" style={{ borderBottom: '1px solid #ddd', padding: '8px' }}></th>
-              <th scope="col" style={{ borderBottom: '1px solid #ddd', padding: '8px', textAlign: 'left' }}>Tests</th>
-              <th scope="col" style={{ borderBottom: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>Difficulty</th>
-              <th scope="col" style={{ borderBottom: '1px solid #ddd', padding: '8px' }}></th>
-            </tr>
-          </thead>
           <tbody>
             {tests.map((e) => (
               <tr key={e.testNumber} style={{ borderBottom: '1px solid #ddd' }}>
