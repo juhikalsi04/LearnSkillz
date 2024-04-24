@@ -1,5 +1,7 @@
 import React from "react";
+
 import { Link } from "react-router-dom";
+
 
 const Placement = () => {
   const companies = [
@@ -13,6 +15,8 @@ const Placement = () => {
   ];
 
   return (
+
+
     <div className="font-poppins">
       <div className="mx-4">
         <h1 className="text-3xl font-bold px-4 mt-3 ">Placements</h1>
@@ -35,4 +39,5 @@ const Placement = () => {
 };
 
 export default Placement;
+
 

@@ -4,24 +4,25 @@ const fetchPaper = require('../middleware/fetchPaper')
 const SamplePaper = require('../models/SamplePaper')
 const questions = require('../models/questions');
 const { body, validationResult } = require('express-validator');
+var jwt = require('jsonwebtoken');
+const JWT_SECRET = 'secret';
+
 router.get('/', async (req, res) => {
-    try {
 
-        const paper = await SamplePaper.find().select();
-        if (!paper) {
-            return res.status(404).json({ error: 'No posts found' });
-        }
-        const data = {
-            testNo: {
-                testNo: paper.testNo
-            }
-        }
-        const paperToken = jwt.sign(data, JWT_SECRET);
 
-        res.json(paperToken);
-    } catch (error) {
-        res.status(500).send('Server error');
+    const paper = await SamplePaper.find().select();
+    if (!paper) {
+        return res.status(404).json({ error: 'No posts found' });
     }
+    const data = {
+        testNo: {
+            testNo: paper.testNo
+        }
+    }
+    const paperToken = jwt.sign(data, JWT_SECRET);
+
+    res.json({ paperToken, paper });
+
 })
 router.get('/:testNo', fetchPaper, async (req, res) => {
     try {

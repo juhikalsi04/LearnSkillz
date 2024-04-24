@@ -4,7 +4,11 @@ const port = 5000;
 const connectToMongo = require('./db');
 const fetchUser = require("./middleware/fetchUser");
 connectToMongo();
+const cors = require('cors');
 
+
+// Enable CORS for all routes
+app.use(cors());
 app.use(express.json())
 
 app.use('/api/discussion/post', require('./routes/post'))

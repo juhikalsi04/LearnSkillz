@@ -10,7 +10,7 @@ body {
   margin: 0px;
   padding: 0px;
   overflow-x: hidden;
-  background-color:rgb(255, 255, 255); 
+  background-color:rgb(238, 243, 249); 
   text-decoration: none;
   color: rgb(0, 0, 0);
 }
@@ -51,15 +51,18 @@ nav {
 }
 main{
   width: 100%;
+
   background-color: rgb(238, 243, 249);
 }
 
 .sidebar{
   background: rgb(0, 145, 255);
   color: white;
+
+  position: sticky;
+  top:0;
   height: 100vh; 
-  position: sticky;   /*making the sidebar stick */
-  top: 0;            /*making the sidebar stick to top */
+
   width: 60vh; 
   transition: all 0.5s; 
 }
@@ -197,7 +200,6 @@ main{
     width: 60%;
     margin-left: 53px;
 }
-
 
 /* about us page */
 .photo{
