@@ -7,7 +7,7 @@ import {
   FaHome,
   FaPhoneAlt,
   FaRegChartBar,
-   FaUserAlt,
+  FaTh, FaUserAlt,
 } from "react-icons/fa"
 import { NavLink } from 'react-router-dom'
 
@@ -40,11 +40,6 @@ const Sidebar = ({children}) => {
         name:"About",
         icon:<FaUserAlt/>
       },
-      {
-        path:"/contact",
-        name:"Contact",
-        icon:<FaPhoneAlt/>
-      },
     ]
 
   return (
@@ -53,13 +48,13 @@ const Sidebar = ({children}) => {
       <div style={{width:isOpen? "250px":"50px"}} className='sidebar'>
         <div className='top_section'>
           <h1 style={{display:isOpen? "block":"none"}} className='logo'>LearnSkillz</h1>
-          <div style={{marginLeft:isOpen? "70px":"0px"}}className='bars'>
+          <div style={{marginLeft:isOpen? "100px":"0px"}}className='bars'>
               <FaBars onClick={toggle}/>
           </div>
         </div>
         {
           menuItem.map((item,index)=>(
-            <NavLink to={item.path} key={index} className="link" activeclassname="active" style={{textDecoration:"none"}}>
+            <NavLink to={item.path} key={index} className="link" activeclassname="active">
               <div className='icon'>{item.icon}</div>
               <div style={{display:isOpen? "block":"none"}}className='link_text'>{item.name}</div>
             </NavLink>          

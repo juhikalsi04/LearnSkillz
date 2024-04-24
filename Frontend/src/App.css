@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   font-family: "Amazon Ember";
@@ -6,7 +10,7 @@ body {
   margin: 0px;
   padding: 0px;
   overflow-x: hidden;
-  background-color:rgb(255, 255, 255); 
+  background-color:rgb(238, 243, 249); 
   text-decoration: none;
   color: rgb(0, 0, 0);
 }
@@ -46,17 +50,17 @@ nav {
   display: flex;
 }
 main{
- 
   width: 100%;
-  padding: 20px;
+  margin-left: 7px;
+  background-color: rgb(238, 243, 249);
 }
 
 .sidebar{
-  position: relative;
-  
   background: rgb(0, 145, 255);
   color: white;
-  height: 150vh; 
+  position: sticky;
+  top:0;
+  height: 100vh; 
   width: 60vh; 
   transition: all 0.5s; 
 }
@@ -72,7 +76,6 @@ main{
 .bars{
   display: flex;
   font-size: 25px;
-  
 
 }
 
@@ -97,6 +100,49 @@ main{
 .icon, .link_text{
   font-size: 20px;
 }
+/*homepage  */
+/* .section-services{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  grid-gap:2rem;
+}
+.section-services  .service-box{
+  flex: 1 1 11rem;
+  padding: 2rem 1rem 2rem;
+  text-align: center;
+  background: rgba(11, 146, 250, 0.787);
+  transition: transform .4s;
+  border-radius: 8px;
+  color: rgb(15, 14, 14);
+}
+
+
+/* .service-box:hover{
+   transform: translateY(-.7rem);        
+} */
+
+.service-box h3{
+  /* margin-top: 10px; */
+  font-size: 1.5rem;
+}
+
+.service-box p{
+  margin: .5rem 0 1.5rem 0;
+  font-weight: 400;
+  letter-spacing: 1px;
+  color: black;
+  line-height: 1.6;
+  background-color: red;
+}
+
+.section-services .service-box ul {
+  list-style-type: none; /* Removes the bullet points */
+  padding: 0; /* Removes default padding */
+  line-height: 26px;
+} */
+
 
 /* contact page */
 .contact-container{
@@ -118,7 +164,8 @@ main{
     border: none;
     border-radius: 5px;
     padding: 0.7rem;
-    background-image: linear-gradient(to bottom right, rgb(209, 235, 233), rgb(204, 237, 235));
+    /* background-image: linear-gradient(to bottom right, rgb(209, 235, 233), rgb(204, 237, 235)); */
+    background-color: #e7e6e6;
 }
 
 .contact form textarea{
@@ -144,24 +191,46 @@ main{
 
 .btn:hover{
   color: white;
-  background: rgb(84, 138, 204);
+  background: #6c68f0;
 }
 
 .contact-image img{
     width: 60%;
     margin-left: 53px;
-
 }
 
-.start-test{
-  background-color: rgb(41, 177, 255);
-  color: white;
-  text-decoration: none;
-  padding: 4%;
-  border: 10%;
-  margin-top: 5%;
-  margin-bottom: 5%;
-  border-radius: 7%;
-/* ======= */
-/* >>>>>>> 45f172fdbcea1889ac447396663d6660909b73ca */
+
+/* about us page */
+.photo{
+  width: 100px;
+  height: 100px;
+  float: left;
 }
+
+.skill-row{
+  /* width: 73%; */
+  /* margin: auto; */
+  margin: 2px;
+  text-align: left;
+  line-height: 2;
+}
+
+.giphy1{
+  width: 30%;
+  float: right;
+  margin-left: 32px;
+}
+.skills .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* margin-bottom: 2rem;  */
+}
+.p-left{
+margin-left: 4px;
+margin-right: 40px;
+}
+
+
+
+
