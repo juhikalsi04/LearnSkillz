@@ -1,4 +1,6 @@
+
 import { useState } from 'react';
+
 import './App.css';
 import SampleTest from './components/pages/SampleTest';
 import Sidebar from './components/layouts/Sidebar';
@@ -8,10 +10,16 @@ import Home from './components/pages/Home';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import Placement from './components/pages/Placement';
 import OnlineTest from './components/pages/OnlineTest';
+
 import Dashboard from './components/Dashboard';
 import Login from './components/Login';
 import { UserProvider } from './context/UserContext';
 import Result from './components/Result';
+
+import Company from './components/pages/Company';
+import Practice from './components/pages/Practice';
+
+
 function App() {
   const [user, setUser] = useState(null);
 
@@ -22,6 +30,7 @@ function App() {
   };
   return (
     <>
+
       <UserProvider>
         <Router>
           <Sidebar>
@@ -35,11 +44,23 @@ function App() {
               <Route path="/dashboard" render={() => <Dashboard user={user} />} />
               <Route path='/onlinetest/sampletest' element={<SampleTest />} />
               <Route path="/login" render={() => <Login onLogin={handleLogin} />} />
-            </Routes>
-          </Sidebar>
-        </Router>
-      </UserProvider>
-    </>
+           
+     
+   
+
+  
+ 
+      
+      
+      
+      <Route path="/companies/:companyName" element={<Company />} />
+      <Route path="/aptitude" element={<Practice/>}/>
+    </Routes>
+    </Sidebar>
+  </Router>
+   </UserProvider>
+</>
+
   );
 }
 
