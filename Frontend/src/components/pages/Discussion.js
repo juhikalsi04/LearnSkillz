@@ -46,6 +46,7 @@ const Discussion = () => {
 
             {showLogin && <Login />}
             {showRegister && <Register />}
+
         </div>
     );
 };
