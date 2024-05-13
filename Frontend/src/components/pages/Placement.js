@@ -10,8 +10,8 @@ const Placement = () => {
     { id: 3, name: "Capegemini", imageUrl: "https://1000logos.net/wp-content/uploads/2021/08/Capgemini-Logo-1996.png", detailsUrl: "/companies/tcs" },
     { id: 4, name: "cognizant", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/43/Cognizant_logo_2022.svg", detailsUrl: "/companies/tcs" },
     { id: 5, name: "Yash Technologies", imageUrl: "https://seeklogo.com/images/H/hexaware-technologies-logo-7B0FA8DDA8-seeklogo.com.png", detailsUrl: "/companies/tcs" },
-    { id: 2, name: "Wipro", imageUrl: `${process.env.PUBLIC_URL}/images/wipro.png`, detailsUrl: "/companies/tcs" },
-    { id: 2, name: "Accenture", imageUrl: `${process.env.PUBLIC_URL}/images/pngegg.png`, detailsUrl: "/companies/tcs" },
+    { id: 6, name: "Wipro", imageUrl: `${process.env.PUBLIC_URL}/images/wipro.png`, detailsUrl: "/companies/tcs" },
+    { id: 7, name: "Accenture", imageUrl: `${process.env.PUBLIC_URL}/images/pngegg.png`, detailsUrl: "/companies/tcs" },
   ];
 
   return (
@@ -35,7 +35,7 @@ const Placement = () => {
       </div>
     </div>
   );
-  
+
 };
 
 export default Placement;

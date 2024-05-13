@@ -1,60 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CountdownTimer from './Timer';
-import { useNavigate } from 'react-router-dom';
-const SampleTest = () => {
-    const tests = [
-        {
-            "question": "What is the capital of France?",
-            "options": ["Berlin", "Madrid", "Paris", "Rome"],
-            "correctAnswer": "Paris"
-        },
-        {
-            "question": "Which planet is known as the Red Planet?",
-            "options": ["Venus", "Mars", "Jupiter", "Saturn"],
-            "correctAnswer": "Mars"
-        },
-        {
-            "question": "Who wrote 'Romeo and Juliet'?",
-            "options": ["Charles Dickens", "William Shakespeare", "Jane Austen", "Mark Twain"],
-            "correctAnswer": "William Shakespeare"
-        },
-        {
-            "question": "In what year did World War II end?",
-            "options": ["1943", "1945", "1947", "1950"],
-            "correctAnswer": "1945"
-        },
-        {
-            "question": "Which country is known as the Land of the Rising Sun?",
-            "options": ["China", "Japan", "South Korea", "Vietnam"],
-            "correctAnswer": "Japan"
-        },
-        {
-            "question": "Who painted the Mona Lisa?",
-            "options": ["Vincent van Gogh", "Pablo Picasso", "Leonardo da Vinci", "Claude Monet"],
-            "correctAnswer": "Leonardo da Vinci"
-        },
-        {
-            "question": "What is the largest mammal in the world?",
-            "options": ["Elephant", "Blue Whale", "Giraffe", "Hippopotamus"],
-            "correctAnswer": "Blue Whale"
-        },
-        {
-            "question": "Which gas do plants absorb from the atmosphere?",
-            "options": ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"],
-            "correctAnswer": "Carbon Dioxide"
-        },
-        {
-            "question": "What is the currency of Japan?",
-            "options": ["Yen", "Won", "Ringgit", "Baht"],
-            "correctAnswer": "Yen"
-        },
-        {
-            "question": "Who was the first President of the United States?",
-            "options": ["Thomas Jefferson", "George Washington", "John Adams", "James Madison"],
-            "correctAnswer": "George Washington"
-        }
-    ]
+import { useNavigate, useParams } from 'react-router-dom';
 
+const SampleTest = () => {
+    const { testNo } = useParams();
+    const [questions, setQuestions] = useState([]);
+
+
+    useEffect(() => {
+        const fetchQuestions = async () => {
+            try {
+                const response = await fetch(`http://localhost:5000/api/onlinetest/sampletest/${testNo}`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch questions');
+                }
+                const data = await response.json();
+                setQuestions(data);
+            } catch (error) {
+                console.error('Error fetching questions:', error);
+            }
+        };
+
+        fetchQuestions();
+    }, [testNo]);
 
     const countdownLimit = 600
     const navigate = useNavigate()
@@ -63,39 +31,6 @@ const SampleTest = () => {
     const [showAlert, setShowAlert] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
 
-    const CustomAlert = ({ totalMarks, answered, notAnswered }) => (
-        <div
-            style={{
-                position: 'fixed',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-                backgroundColor: '#ffffff',
-                padding: '20px',
-                borderRadius: '8px',
-                boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
-                zIndex: '1000',
-            }}
-        >
-            <h2>Test Results</h2>
-            <p>Total Marks: {totalMarks}</p>
-            <p>Questions Answered: {answered}</p>
-            <p>Questions Not Answered: {notAnswered}</p>
-            <button
-                style={{
-                    backgroundColor: '#007bff',
-                    color: '#ffffff',
-                    padding: '10px 20px',
-                    borderRadius: '4px',
-                    cursor: 'pointer',
-                    marginRight: '10px',
-                }}
-                onClick={() => window.location.href = '/sampletest/result'}
-            >
-                Close
-            </button>
-        </div>
-    );
 
 
     const handlePreviousQuestion = () => {
@@ -104,7 +39,7 @@ const SampleTest = () => {
     };
 
     const handleNextQuestion = () => {
-        setCurrentQuestion((prev) => Math.min(tests.length - 1, prev + 1));
+        setCurrentQuestion((prev) => Math.min(questions.length - 1, prev + 1));
         setSelectedOption(null); // Clear selection when moving to the next question
     };
 
@@ -128,8 +63,8 @@ const SampleTest = () => {
 
 
     const [remainingTime, setRemainingTime] = useState(countdownLimit);
-    const currentTest = tests[currentQuestion];
-    const isLastQuestion = currentQuestion === tests.length - 1;
+    const currentTest = questions[currentQuestion];
+    const isLastQuestion = currentQuestion === questions.length - 1;
 
 
     return (
@@ -155,7 +90,7 @@ const SampleTest = () => {
                 )}
 
                 {/* Other content of the TestComponent */}
-                {!isSubmitted && (
+                {!isSubmitted && questions.length > 0 && (
                     <div style={{ padding: '20px' }}>
                         <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
                             <thead>
