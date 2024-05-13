@@ -11,6 +11,10 @@ const SamplePaperSchema = new Schema({
     difficulty: {
         type: String,
         required: true
+    },
+    color: {
+        type: String,
+        required: true
     }
 })
 

@@ -1,128 +1,208 @@
 [
-    {
-      "question": "If the price of an item is increased by 20% and then reduced by 10%, what is the net change in price?",
-      "options": ["10% increase", "8% decrease", "10% decrease", "8% increase"],
-      "correctAnswer": "8% increase"
-    },
-    {
-      "question": "A person sells an article for $800 and suffers a loss of 20%. What is the cost price of the article?",
-      "options": ["$960", "$1,000", "$1,200", "$840"],
-      "correctAnswer": "$1,000"
-    },
-    {
-      "question": "If the selling price of an item is $600 and the profit percentage is 20%, what is the cost price of the item?",
-      "options": ["$500", "$480", "$540", "$420"],
-      "correctAnswer": "$500"
-    },
-    {
-      "question": "The ratio of two numbers is 3:4 and their sum is 70. What are the numbers?",
-      "options": ["25, 45", "30, 40", "20, 50", "15, 55"],
-      "correctAnswer": "30, 40"
-    },
-    {
-      "question": "In a bag of candies, the ratio of red to green candies is 3:5. If there are 48 green candies, how many red candies are there?",
-      "options": ["24", "16", "18", "36"],
-      "correctAnswer": "18"
-    },
-    {
-      "question": "A card is drawn at random from a pack of 52 cards. What is the probability of drawing a spade or a club?",
-      "options": ["1/4", "1/2", "3/4", "1/3"],
-      "correctAnswer": "1/2"
-    },
-    {
-      "question": "A bag contains 5 white, 7 red, and 8 black balls. If one ball is drawn at random, what is the probability that it is not black?",
-      "options": ["5/20", "12/20", "15/20", "13/20"],
-      "correctAnswer": "12/20"
-    },
-    {
-      "question": "A coin is tossed twice. What is the probability of getting at least one head?",
-      "options": ["1/2", "3/4", "1/4", "1/3"],
-      "correctAnswer": "3/4"
-    },
-    {
-      "question": "If a number is increased by 20% and then decreased by 20%, the result is the original number decreased by how much?",
-      "options": ["4%", "10%", "12%", "16%"],
-      "correctAnswer": "4%"
-    },
-    {
-      "question": "A shopkeeper sells a TV for $10,000 at a profit of 25%. What is the cost price of the TV?",
-      "options": ["$7,500", "$8,000", "$8,500", "$9,000"],
-      "correctAnswer": "$8,000"
-    },
-    {
-      "question": "A sum of money is divided among three persons in the ratio 2:3:4. If the difference between the shares of the first and second person is $400, what is the total amount of money?",
-      "options": ["$1,200", "$1,600", "$2,000", "$2,400"],
-      "correctAnswer": "$2,400"
-    },
-    {
-      "question": "The probability of getting a sum of 7 when two dice are thrown is?",
-      "options": ["1/6", "1/12", "1/9", "1/8"],
-      "correctAnswer": "1/6"
-    },
-    {
-      "question": "In a school, 70% of the students like cricket, 80% like football, and 10% like both cricket and football. What percentage of students do not like either of the two sports?",
-      "options": ["20%", "15%", "25%", "30%"],
-      "correctAnswer": "25%"
-    },
-    {
-      "question": "A reduction of 20% in the price of sugar enables a man to buy 2.5 kg more for $160. What is the reduced price of sugar per kg?",
-      "options": ["$8", "$7", "$6", "$5"],
-      "correctAnswer": "$6"
-    },
-    {
-      "question": "If x% of y is equal to y% of 80, then x is equal to?",
-      "options": ["16", "8", "32", "64"],
-      "correctAnswer": "16"
-    },
-    {
-      "question": "A certain number of men can finish a piece of work in 15 days. If, after 5 days, three men leave, then the rest of the work was completed in 20 days. The original number of men was?",
-      "options": ["15", "20", "25", "30"],
-      "correctAnswer": "20"
-    },
-    {
-      "question": "A sells a pen to B at a profit of 20% and B sells it to C at a profit of 25%. If C pays $90 for the pen, the cost price of the pen for A is?",
-      "options": ["$50", "$60", "$70", "$80"],
-      "correctAnswer": "$60"
-    },
-    {
-      "question": "A man sells an article at a profit of 25%. If he had bought it at 20% less and sold it for $10.50 less, he would have gained 30%. The cost price of the article is?",
-      "options": ["$30", "$35", "$40", "$45"],
-      "correctAnswer": "$40"
-    },
-    {
-      "question": "If the price of a car increases by 20% and the number of cars sold decreases by 20%, by what percentage does the revenue decrease?",
-      "options": ["20%", "16%", "24%", "12%"],
-      "correctAnswer": "16%"
-    },
-    {
-      "question": "If 75% of a number is added to 75, the result is the number itself. What is the number?",
-      "options": ["100", "150", "200", "250"],
-      "correctAnswer": "200"
-    },
-    {
-      "question": "A batsman scored 110 runs which included 3 boundaries and 8 sixes. What percentage of his total score did he make by running between the wickets?",
-      "options": ["45%", "50%", "55%", "60%"],
-      "correctAnswer": "60%"
-    },
-    {
-      "question": "If A is 30% more than B, then B is less than A by?",
-      "options": ["23.08%", "25%", "27.27%", "30%"],
-      "correctAnswer": "23.08%"
-    },
-    {
-      "question": "The ratio of boys to girls in a class is 5:3. If there are 30 boys, how many girls are there?",
-      "options": ["15", "18", "20", "25"],
-      "correctAnswer": "18"
-    },
-    {
-      "question": "The probability of getting a prime number on a single toss of a fair die is?",
-      "options": ["1/2", "1/3", "1/4", "1/6"],
-      "correctAnswer": "1/2"
-    },
-    {
-      "question": "A jar contains 12 red balls, 15 blue balls, and 18 green balls. If a ball is selected at random, what is the probability that it is not blue?",
-      "options": ["1/2", "4/9", "5/9", "5/12"],
-      "correctAnswer": "4/9"
-    }
-  ]
+  {
+    "testNo": 1,
+    "question": "If the ratio of boys to girls in a class is 2:3, and there are 25 boys, how many girls are there?",
+    "options": ["10", "15", "20", "25"],
+    "correctAnswer": "15"
+  },
+  {
+    "testNo": 1,
+    "question": "What is 30% of 80?",
+    "options": ["20", "24", "30", "32"],
+    "correctAnswer": "24"
+  },
+  {
+    "testNo": 1,
+    "question": "If a car travels at a speed of 60 km/h, how far will it travel in 5 hours?",
+    "options": ["250 km", "300 km", "350 km", "400 km"],
+    "correctAnswer": "300 km"
+  },
+  {
+    "testNo": 1,
+    "question": "If 3x + 5 = 20, what is the value of x?",
+    "options": ["3", "5", "7", "9"],
+    "correctAnswer": "5"
+  },
+  {
+    "testNo": 1,
+    "question": "What is the next number in the sequence: 2, 4, 8, 16, ...?",
+    "options": ["20", "24", "32", "64"],
+    "correctAnswer": "32"
+  },
+  {
+    "testNo": 1,
+    "question": "If the price of an item is increased by 10% and then reduced by 10%, what is the net change in price?",
+    "options": ["No change", "5% increase", "5% decrease", "10% increase"],
+    "correctAnswer": "No change"
+  },
+  {
+    "testNo": 1,
+    "question": "What is 25% of 200?",
+    "options": ["40", "45", "50", "55"],
+    "correctAnswer": "50"
+  },
+  {
+    "testNo": 1,
+    "question": "If the area of a rectangle is 36 square meters and the width is 4 meters, what is the length?",
+    "options": ["6 meters", "8 meters", "9 meters", "12 meters"],
+    "correctAnswer": "9 meters"
+  },
+  {
+    "testNo": 1,
+    "question": "If x + 3 = 7, what is the value of x?",
+    "options": ["2", "3", "4", "5"],
+    "correctAnswer": "4"
+  },
+  {
+    "testNo": 1,
+    "question": "What is the square root of 144?",
+    "options": ["10", "11", "12", "13"],
+    "correctAnswer": "12"
+  },
   
+    {
+      "testNo": 2,
+      "question": "If all cats are mammals and some mammals are dogs, then which of the following statements is necessarily true?",
+      "options": [
+        "Some cats are dogs",
+        "All dogs are cats",
+        "Some mammals are cats",
+        "All cats are dogs"
+      ],
+      "correctAnswer": "Some cats are dogs"
+    },
+    {
+      "testNo": 2,
+      "question": "If today is Sunday, what day will it be in 300 days?",
+      "options": ["Monday", "Tuesday", "Wednesday", "Thursday"],
+      "correctAnswer": "Wednesday"
+    },
+    {
+      "testNo": 2,
+      "question": "Arrange the words in alphabetical order: Dog, Cat, Elephant, Rabbit",
+      "options": [
+        "Cat, Dog, Elephant, Rabbit",
+        "Dog, Cat, Elephant, Rabbit",
+        "Elephant, Rabbit, Dog, Cat",
+        "Cat, Dog, Rabbit, Elephant"
+      ],
+      "correctAnswer": "Cat, Dog, Elephant, Rabbit"
+    },
+    {
+      "testNo": 2,
+      "question": "Which number should come next in the series? 2, 4, 8, 16, ...",
+      "options": ["24", "32", "48", "64"],
+      "correctAnswer": "32"
+    },
+    {
+      "testNo": 2,
+      "question": "If a car is a type of vehicle and a vehicle is a type of transportation, then what is necessarily true?",
+      "options": [
+        "All cars are vehicles",
+        "All vehicles are cars",
+        "Some vehicles are cars",
+        "Some cars are transportation"
+      ],
+      "correctAnswer": "Some vehicles are cars"
+    },
+    {
+      "testNo": 2,
+      "question": "Complete the series: 3, 6, 9, 12, ...",
+      "options": ["15", "18", "21", "24"],
+      "correctAnswer": "15"
+    },
+    {
+      "testNo": 2,
+      "question": "If all pencils are pens and some pens are markers, then which of the following statements is necessarily true?",
+      "options": [
+        "All pencils are markers",
+        "All markers are pencils",
+        "Some pencils are markers",
+        "All markers are pens"
+      ],
+      "correctAnswer": "Some pencils are markers"
+    },
+    {
+      "testNo": 2,
+      "question": "How many triangles are in the following figure?",
+      "options": ["6", "7", "8", "9"],
+      "correctAnswer": "9"
+    },
+    {
+      "testNo": 2,
+      "question": "If today is Monday, what day will it be in 10 days?",
+      "options": ["Tuesday", "Wednesday", "Thursday", "Friday"],
+      "correctAnswer": "Wednesday"
+    },
+    {
+      "testNo": 2,
+      "question": "Which number should replace the question mark in the following series? 3, 6, 9, 12, ?",
+      "options": ["15", "16", "18", "21"],
+      "correctAnswer": "15"
+    },
+    
+      {
+        "testNo": 3,
+        "question": "Which planet is known as the Red Planet?",
+        "options": ["Venus", "Mars", "Jupiter", "Saturn"],
+        "correctAnswer": "Mars"
+      },
+      {
+        "testNo": 3,
+        "question": "Who wrote 'Romeo and Juliet'?",
+        "options": ["Charles Dickens", "William Shakespeare", "Jane Austen", "Mark Twain"],
+        "correctAnswer": "William Shakespeare"
+      },
+      {
+        "testNo": 3,
+        "question": "In what year did World War II end?",
+        "options": ["1943", "1945", "1947", "1950"],
+        "correctAnswer": "1945"
+      },
+      {
+        "testNo": 3,
+        "question": "Who painted the Mona Lisa?",
+        "options": ["Vincent van Gogh", "Pablo Picasso", "Leonardo da Vinci", "Claude Monet"],
+        "correctAnswer": "Leonardo da Vinci"
+      },
+      {
+        "testNo": 3,
+        "question": "What is the largest mammal in the world?",
+        "options": ["Elephant", "Blue Whale", "Giraffe", "Hippopotamus"],
+        "correctAnswer": "Blue Whale"
+      },
+      {
+        "testNo": 3,
+        "question": "Which gas do plants absorb from the atmosphere?",
+        "options": ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"],
+        "correctAnswer": "Carbon Dioxide"
+      },
+      {
+        "testNo": 3,
+        "question": "What is the currency of Japan?",
+        "options": ["Yen", "Won", "Ringgit", "Baht"],
+        "correctAnswer": "Yen"
+      },
+      {
+        "testNo": 3,
+        "question": "Who was the first President of the United States?",
+        "options": ["Thomas Jefferson", "George Washington", "John Adams", "James Madison"],
+        "correctAnswer": "George Washington"
+      },
+      {
+        "testNo": 3,
+        "question": "Which country is known as the Land of the Rising Sun?",
+        "options": ["China", "Japan", "South Korea", "Vietnam"],
+        "correctAnswer": "Japan"
+      },
+      {
+        "testNo": 3,
+        "question": "What is the capital of France?",
+        "options": ["Berlin", "Madrid", "Paris", "Rome"],
+        "correctAnswer": "Paris"
+      }
+    
+    
+  
+  
+]

@@ -8,7 +8,6 @@ const CountdownTimer = ({ limit, onTimeUpdate }) => {
             setTimeLeft((prevTime) => {
                 const newTime = prevTime - 1;
                 if (newTime >= 0) {
-                    onTimeUpdate(newTime); // Update the time in the parent component
                     return newTime;
                 }
                 clearInterval(timer);
@@ -16,8 +15,16 @@ const CountdownTimer = ({ limit, onTimeUpdate }) => {
             });
         }, 1000);
 
-        return () => clearInterval(timer);
-    }, [limit, onTimeUpdate]);
+        // Call onTimeUpdate callback without triggering a state update in the parent component
+        const intervalId = setInterval(() => {
+            onTimeUpdate(timeLeft);
+        }, 1000);
+
+        return () => {
+            clearInterval(timer);
+            clearInterval(intervalId);
+        };
+    }, [limit, onTimeUpdate, timeLeft]);
 
     // Convert timeLeft to minutes and seconds
     const minutes = Math.floor(timeLeft / 60);

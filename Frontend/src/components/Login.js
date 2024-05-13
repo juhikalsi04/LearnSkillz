@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-
+import { useNavigate } from "react-router-dom";
 const Login = ({ onLogin }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [showToast, setShowToast] = useState(false);
-
+    const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -26,9 +26,11 @@ const Login = ({ onLogin }) => {
             });
 
             const data = await response.json();
+            console.log(data);
 
             if (data.success) {
                 localStorage.setItem('token', data.authtoken);
+                navigate("/dashboard");
                 setShowToast(true);
                 setTimeout(() => {
                     setShowToast(false);
@@ -84,6 +86,7 @@ const Login = ({ onLogin }) => {
                 </div>
                 <div style={{ marginBottom: '15px' }}>
                     <button type="submit" style={{ width: '100%', padding: '10px', border: 'none', borderRadius: '4px', backgroundColor: '#007bff', color: '#fff', cursor: 'pointer' }}>Login</button>
+
                 </div>
             </form>
         </div>

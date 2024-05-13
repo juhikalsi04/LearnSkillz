@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
     }
     const paperToken = jwt.sign(data, JWT_SECRET);
 
-    res.json({ paperToken, paper });
+    res.json(paper);
 
 })
 router.get('/:testNo', fetchPaper, async (req, res) => {
@@ -45,10 +45,11 @@ router.post('/', async (req, res) => {
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-        const { testNo, difficulty } = req.body; // Destructuring request body
+        const { testNo, difficulty, color } = req.body; // Destructuring request body
         const samplePaper = new SamplePaper({
             testNo,
             difficulty,
+            color
         });
         const savedPaper = await samplePaper.save();
         res.json(savedPaper);

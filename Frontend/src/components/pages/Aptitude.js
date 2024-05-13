@@ -1,11 +1,26 @@
-import questionsData from "./questions.json";
-import { useState } from "react";
-import React from "react";
-
+import React, { useState, useEffect } from "react";
 
 const Practice = () => {
+  const [questionsData, setQuestionsData] = useState([]);
   const [selectedOptions, setSelectedOptions] = useState({});
   const [showAnswer, setShowAnswer] = useState({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/aptitude");
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        const data = await response.json();
+        setQuestionsData(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleOptionChange = (questionIndex, optionIndex) => {
     setSelectedOptions({
@@ -28,15 +43,15 @@ const Practice = () => {
 
   return (
     <>
-     <div className="flex justify-between items-center mb-8 ">
-  <h2 className="text-xl font-bold ml-4 font-poppins">Aptitude Questions</h2>
-  <button
-    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 mt-5 mr-4"
-    onClick={handleReset}
-  >
-    Reset
-  </button>
-</div>
+      <div className="flex justify-between items-center mb-8">
+        <h2 className="text-xl font-bold ml-4 font-poppins">Aptitude Questions</h2>
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 mt-5 mr-4"
+          onClick={handleReset}
+        >
+          Reset
+        </button>
+      </div>
       <div className="container mx-auto font-poppins ml-4">
         <table
           style={{
@@ -130,4 +145,3 @@ const Practice = () => {
 };
 
 export default Practice;
-

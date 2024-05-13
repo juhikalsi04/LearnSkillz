@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const { Schema } = require('mongoose')
 
-const apptitudeSchema = new Schema({
+const aptitudeSchema = new Schema({
 
     question: {
         type: String,
@@ -17,4 +17,4 @@ const apptitudeSchema = new Schema({
     }
 })
 
-module.exports = mongoose.model('apptitude', questionSchema)
+module.exports = mongoose.model('aptitude', aptitudeSchema)
