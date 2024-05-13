@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import CountdownTimer from './Timer';
 import { useNavigate, useParams } from 'react-router-dom';
+import Result from '../Result';
 
 const SampleTest = () => {
     const { testNo } = useParams();
     const [questions, setQuestions] = useState([]);
+    const [selectedOptions, setSelectedOptions] = useState({}); // Object to store selected options for each question
 
 
     useEffect(() => {
@@ -32,31 +34,54 @@ const SampleTest = () => {
     const [isSubmitted, setIsSubmitted] = useState(false);
 
 
+    const handleSaveAndNext = () => {
+        // Save the selected option for the current question
+        setSelectedOptions(prevOptions => ({
+            ...prevOptions,
+            [currentQuestion]: selectedOption
+        }));
+
+        console.log('Answer saved for question:', currentQuestion, 'Selected option:', selectedOption);
+        console.log('Selected options:', selectedOptions); // Add this line to check the selected options state
+        handleNextQuestion();
+    };
 
     const handlePreviousQuestion = () => {
-        setCurrentQuestion((prev) => Math.max(0, prev - 1));
-        setSelectedOption(null); // Clear selection when moving to the previous question
+        // Retrieve the selected option for the previous question
+        const prevSelectedOption = selectedOptions[currentQuestion - 1];
+
+        console.log('Previous selected option:', prevSelectedOption); // Add this line to check the previous selected option
+        setCurrentQuestion(prev => Math.max(0, prev - 1));
+        setSelectedOption(prevSelectedOption || null); // Set the selected option for the previous question
     };
 
     const handleNextQuestion = () => {
-        setCurrentQuestion((prev) => Math.min(questions.length - 1, prev + 1));
-        setSelectedOption(null); // Clear selection when moving to the next question
+        const nextQuestion = Math.min(questions.length - 1, currentQuestion + 1);
+        const nextQuestionSelectedOption = selectedOptions[nextQuestion];
+
+        console.log('Next question:', nextQuestion);
+        console.log('Next question selected option:', nextQuestionSelectedOption); // Add this line to check the next question selected option
+
+        // Set the selected option for the next question if already selected, otherwise set it to null
+        setSelectedOption(nextQuestionSelectedOption !== undefined ? nextQuestionSelectedOption : null);
+
+        setCurrentQuestion(nextQuestion);
     };
 
     const handleClearSelection = () => {
         setSelectedOption(null); // Clear the selected option for the current question
     };
 
-    const handleSaveAndNext = () => {
-        // Implement saving logic here
-        console.log('Answer saved for question:', currentQuestion, 'Selected option:', selectedOption);
-        handleNextQuestion();
-    };
+
     const handleAlertSubmit = () => {
+        setSelectedOptions(prevOptions => ({
+            ...prevOptions,
+            [currentQuestion]: selectedOption
+        }));
+        console.log('Selected options:', selectedOptions);
         setIsSubmitted(true);
         setShowAlert(false);
-        navigate('/sampletest/result');
-        // Handle submitting the test here
+
     };
 
 
@@ -76,6 +101,7 @@ const SampleTest = () => {
                 </div>
                 {/* Alert box for submitting test */}
                 {showAlert && (
+
                     <div style={{ position: 'fixed', top: '0', left: '0', width: '100%', height: '100%', zIndex: 2, backgroundColor: 'rgba(0, 0, 0, 0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <div style={{ backgroundColor: '#fff', padding: '40px', borderRadius: '8px', boxShadow: '0px 0px 20px rgba(0,0,0,0.3)', textAlign: 'center' }}>
                             <p style={{ marginBottom: '20px' }}>Are you sure you want to submit the test?</p>
@@ -90,7 +116,7 @@ const SampleTest = () => {
                 )}
 
                 {/* Other content of the TestComponent */}
-                {!isSubmitted && questions.length > 0 && (
+                {!isSubmitted && questions.length > 0 ? (
                     <div style={{ padding: '20px' }}>
                         <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
                             <thead>
@@ -105,23 +131,28 @@ const SampleTest = () => {
                                     <td style={{ borderBottom: '1px solid #ddd', padding: '8px', textAlign: 'left' }}>
                                         <ul style={{ listStyleType: 'none', padding: 0 }}>
                                             {currentTest.options.map((option, index) => (
-                                                <li key={index} style={{ marginBottom: '8px' }}>
-                                                    <div className="form-check">
-                                                        <input
-                                                            className="form-check-input"
-                                                            type="radio"
-                                                            id={`option-${index}`}
-                                                            name={`question-${currentQuestion}`}
-                                                            checked={selectedOption === index}
-                                                            onChange={() => setSelectedOption(index)}
-                                                        />
-                                                        <label className="form-check-label" htmlFor={`option-${index}`}>
-                                                            {option}
-                                                        </label>
+                                                <li key={index}
+                                                    style={{
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        height: "70px",
+                                                        paddingLeft: "15px",
+                                                        border: '1px solid black',
+                                                        borderRadius: '8px',
+                                                        marginBottom: "20px",
+                                                        fontSize: "20px",
+                                                        cursor: "pointer",
+                                                        backgroundColor: index === selectedOption ? 'lightblue' : 'white' // Highlight selected option
+                                                    }}
+                                                    onClick={() => setSelectedOption(index)} // Handle option selection
+                                                >
+                                                    <div>
+                                                        {option}
                                                     </div>
                                                 </li>
                                             ))}
                                         </ul>
+
                                     </td>
                                 </tr>
                             </tbody>
@@ -145,7 +176,10 @@ const SampleTest = () => {
                             )}
                         </div>
                     </div>
+                ) : (
+                    <Result selectedOptions={selectedOptions} testNo={testNo} />
                 )}
+
             </div>
         </>
     );
