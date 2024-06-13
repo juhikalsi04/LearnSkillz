@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-const Login = ({ onLogin }) => {
+const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -30,11 +30,7 @@ const Login = ({ onLogin }) => {
 
             if (data.success) {
                 localStorage.setItem('token', data.authtoken);
-                navigate("/dashboard");
-                setShowToast(true);
-                setTimeout(() => {
-                    setShowToast(false);
-                }, 5000);
+                navigate('/postlist', { state: { authToken: data.authtoken } }); // Navigate to PostList with authToken as state
             } else {
                 setError('Invalid credentials. Please try again.');
             }
@@ -45,12 +41,12 @@ const Login = ({ onLogin }) => {
     };
 
     return (
-        <div style={{ maxWidth: '400px', margin: '0 auto', padding: '20px', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)' }}>
+        <div style={{ maxWidth: '400px', margin: '25px auto', padding: '20px', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)' }}>
             <h2 style={{ fontSize: '1.5em', marginBottom: '20px', textAlign: 'center' }}>Login</h2>
 
             {/* Bootstrap Toast Notification */}
             {showToast && (
-                <div className="toast show" role="alert" aria-live="assertive" aria-atomic="true" style={{ position: 'fixed', bottom: '20px', right: '100px', zIndex: '1', minWidth: '300px', backgroundColor: '#f8f9fa', color: '#6c757d', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderRadius: ' 8px' }}>
+                <div className="toast show " role="alert" aria-live="assertive" aria-atomic="true" style={{ position: 'fixed', bottom: '20px', right: '100px', zIndex: '1', minWidth: '300px', backgroundColor: '#f8f9fa', color: '#6c757d', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderRadius: ' 8px' }}>
                     <div className="toast-header bg-success text-black">
                         <strong className="me-auto">Success</strong>
                         <button type="button" className="btn-close btn-close-white" onClick={() => setShowToast(false)} aria-label="Close"></button>

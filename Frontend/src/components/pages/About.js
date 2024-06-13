@@ -1,14 +1,15 @@
 import React from "react";
 import AboutUs from "../../components/images/h2.png";
-
+import sawi from "../../components/images/s.png"
+import juhi from "../../components/images/juhi-modified.png"
 import Team from "./Team";
 // import 'boxicons'
 const About = () => {
   return (
 
 
-      
-       
+
+
 
     <div className="font-poppins">
       <h1 className="text-3xl font-bold p-4 ml-2 ">About Us</h1>
@@ -55,54 +56,54 @@ const About = () => {
             <div className="border border-gray-200 rounded-lg p-4 bg-blue-200">
               <h2 className="text-2xl font-bold ">What we Offer</h2>
               <ul className="list-disc list-inside mt-2">
-                  <li>
+                <li>
                   Comprehensive Study Materials: We offer a wide range of study
-                materials covering aptitude, reasoning, verbal, and other
-                relevant topics tailored to placement exams.
-                  </li>
-                  <li>
+                  materials covering aptitude, reasoning, verbal, and other
+                  relevant topics tailored to placement exams.
+                </li>
+                <li>
                   Practice Tests: Put your skills to the test with our interactive
-                practice tests designed to simulate real exam conditions and
-                track your progress over time.
-                  </li>
-                  <li>
-                    Community Support: Join a vibrant community of fellow
-                    students and professionals to share tips, advice, and
-                    support each other on your placement journey.
-                  </li>
-                  <li>Company Insights: Explore insights
-                into top companies' hiring criteria, interview processes, and
-                frequently asked questions to better prepare for your dream job</li>
+                  practice tests designed to simulate real exam conditions and
+                  track your progress over time.
+                </li>
+                <li>
+                  Community Support: Join a vibrant community of fellow
+                  students and professionals to share tips, advice, and
+                  support each other on your placement journey.
+                </li>
+                <li>Company Insights: Explore insights
+                  into top companies' hiring criteria, interview processes, and
+                  frequently asked questions to better prepare for your dream job</li>
                 <li>Expert Guidance: Get expert
-                advice and tips from industry professionals and experienced
-                mentors to help you navigate the recruitment process and stand
-                out to potential employers. .</li>
-                </ul>
+                  advice and tips from industry professionals and experienced
+                  mentors to help you navigate the recruitment process and stand
+                  out to potential employers. .</li>
+              </ul>
             </div>
           </div>
           <div className="mb-4">
-            
-              <div className="mb-6 border  rounded-lg p-4 bg-blue-200">
-                <h2 className="text-2xl font-bold mb-2">Why Choose Us</h2>
-                <ul className="list-disc list-inside mt-2">
-                  <li>
-                    User-Friendly Interface: Our website features a
-                    user-friendly interface designed for easy navigation and
-                    seamless user experience.
-                  </li>
-                  <li>
-                    Up-to-Date Content: We constantly update our content to
-                    reflect the latest trends and changes in placement exams and
-                    recruitment practices.
-                  </li>
-                  <li>
-                    Community Support: Join a vibrant community of fellow
-                    students and professionals to share tips, advice, and
-                    support each other on your placement journey.
-                  </li>
-                </ul>
-              </div>
-            
+
+            <div className="mb-6 border  rounded-lg p-4 bg-blue-200">
+              <h2 className="text-2xl font-bold mb-2">Why Choose Us</h2>
+              <ul className="list-disc list-inside mt-2">
+                <li>
+                  User-Friendly Interface: Our website features a
+                  user-friendly interface designed for easy navigation and
+                  seamless user experience.
+                </li>
+                <li>
+                  Up-to-Date Content: We constantly update our content to
+                  reflect the latest trends and changes in placement exams and
+                  recruitment practices.
+                </li>
+                <li>
+                  Community Support: Join a vibrant community of fellow
+                  students and professionals to share tips, advice, and
+                  support each other on your placement journey.
+                </li>
+              </ul>
+            </div>
+
           </div>
         </div>
       </div>
@@ -110,8 +111,8 @@ const About = () => {
         Meet Our Team
       </h2>
       <div className="flex flex-row items-center">
-        <Team name="Juhi Kalsi" mail="mail" linkedin="linkedin" />
-        <Team name="sawi choukikar" mail="mail" linkedin="linkedin" />
+        <Team name="Juhi Kalsi" mail="mail" linkedin="linkedin" image={juhi} />
+        <Team name="sawi choukikar" mail="mail" linkedin="linkedin" image={sawi} />
       </div>
     </div>
   );

@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
 const Result = ({ selectedOptions, testNo }) => {
     const [questions, setQuestions] = useState([]);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
     // Fetch questions based on the test number
     useEffect(() => {
@@ -33,59 +37,86 @@ const Result = ({ selectedOptions, testNo }) => {
     // Calculate marks obtained based on selected options and correct answers
     let marksObtained = 0;
     questions.forEach((question, index) => {
-        const correctAnswer = question.correctAnswer; // Get correct answer from question object
+        const correctAnswers = question.correctAnswer; // Get correct answer from question object
         const selectedOption = selectedOptions[index]; // Get selected option for current question
-        if (selectedOption !== undefined && selectedOption === correctAnswer) {
+        if (selectedOption !== undefined && selectedOption === correctAnswers) {
             marksObtained++;
         }
     });
 
+    // Calculate the number of wrong choices
+    const wrongChoices = totalMarks - marksObtained;
+
     // Calculate percentage
     const percentage = ((marksObtained / totalMarks) * 100).toFixed(2);
 
-    return (
-        <div className="flex bg-white shadow-md rounded-lg p-6">
-            {/* Left side with text information */}
-            <div className="flex-1">
-                <h2 className="text-2xl font-bold mb-4">Test Result</h2>
-                <div className="flex justify-between items-center mb-4">
-                    <span className="text-lg">Total Marks:</span>
-                    <span className="text-lg font-bold">{totalMarks}</span>
-                </div>
-                <div className="flex justify-between items-center mb-4">
-                    <span className="text-lg">Marks Obtained:</span>
-                    <span className="text-lg font-bold">{marksObtained}</span>
-                </div>
-                <div className="flex justify-between items-center mb-4">
-                    <span className="text-lg">Percentage:</span>
-                    <span className="text-lg font-bold">{percentage}%</span>
-                </div>
-            </div>
+    // Define styles for different percentage ranges
+    const progressBarStyles = buildStyles({
+        pathColor: percentage <= 33 ? 'red' : percentage <= 66 ? 'orange' : 'green',
+        textColor: percentage <= 33 ? 'red' : percentage <= 66 ? 'orange' : 'green',
+    });
 
-            {/* Right side with circular progress indicator */}
-            <div className="flex-1 flex justify-center items-center">
-                <svg className="w-20 h-20">
-                    <circle
-                        className="stroke-current text-green-500"
-                        strokeWidth="8"
-                        fill="transparent"
-                        r="42"
-                        cx="50"
-                        cy="50"
-                    />
-                    <circle
-                        className="stroke-current text-green-500"
-                        strokeWidth="8"
-                        fill="transparent"
-                        r="42"
-                        cx="50"
-                        cy="50"
-                        strokeDasharray={`${percentage} 100`}
-                    />
-                    <text x="50%" y="50%" textAnchor="middle" fill="#000" dy=".3em">
-                        {`${percentage}%`}
-                    </text>
-                </svg>
+    // Define navigation function based on percentage
+    const navigateTo = percentage <= 66 ? '/' : '/onlinetest';
+
+    // Define navigation text based on percentage
+    const navigationText = percentage <= 66 ? 'Visit our website' : 'Go to Online Test';
+
+    return (
+        <div className="flex justify-center items-center h-screen">
+            <div className="bg-gray-100 p-6 rounded-lg shadow-lg">
+                <h2 className="text-2xl font-bold text-center mb-4">Your Result</h2>
+
+                {/* Circular progress bar */}
+                <div className="flex justify-center items-center mb-4">
+                    <div style={{ width: '100px' }}>
+                        <CircularProgressbar value={percentage} text={`${percentage}%`} styles={progressBarStyles} />
+                    </div>
+                </div>
+
+                {/* Text below progress bar */}
+                <div className="text-center mb-4">
+                    {percentage <= 33 ? (
+                        <>
+                            <p className="text-red-500 text-2xl font-bold">Poor</p>
+                            <p>Visit our website for practice questions and come back with great preparation.</p>
+                        </>
+                    ) : percentage <= 66 ? (
+                        <>
+                            <p className="text-orange-500 text-2xl font-bold">Average</p>
+                            <p>Need to improve more. Visit our site for more practice questions.</p>
+                        </>
+                    ) : (
+                        <>
+                            <p className="text-green-500 text-2xl font-bold">Well done!!</p>
+                            <p>Thank you for using Learnskillz. Happy Learning!!</p>
+                        </>
+                    )}
+                </div>
+
+                {/* Boxes for correct answers and percentage */}
+                <div className="flex justify-between mb-4">
+                    <div className={`flex-1 p-4 rounded-lg mr-4 bg-green-200 text-center`}>
+                        <p className="text-lg font-bold" style={{ fontSize: '15px', marginBottom: '12px' }}>Correct Choices</p>
+                        <p className="text-xl text-green-500" style={{ fontSize: '50px' }}>{marksObtained}</p>
+                    </div>
+                    <div className={`flex-1 p-4 rounded-lg bg-red-200 text-center`}>
+                        <p className="text-lg font-bold" style={{ fontSize: '15px', marginBottom: '12px' }}>Wrong Choices</p>
+                        <p className="text-xl text-red-500" style={{ fontSize: '50px', marginBottom: "12px" }}>{wrongChoices}</p>
+                    </div>
+                </div>
+
+                {/* Go to Next Test or Visit Homepage */}
+                <div className="text-center">
+                    <span
+                        className="text-blue-500 underline cursor-pointer"
+                        onClick={() => {
+                            navigate(navigateTo);
+                        }}
+                    >
+                        {navigationText}
+                    </span>
+                </div>
             </div>
         </div>
     );

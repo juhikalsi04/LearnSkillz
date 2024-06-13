@@ -116,4 +116,19 @@ router.post('/getuser', fetchUser, async (req, res) => {
     }
 })
 
+router.get('/:userId', fetchUser, async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const user = await User.findById(userId).select('-password');
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.json(user);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Internal Server Error');
+    }
+});
 module.exports = router
