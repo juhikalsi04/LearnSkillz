@@ -1,231 +1,275 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
+import { FaHeart } from 'react-icons/fa'; // Importing the heart icon from react-icons/fa
 
-const UserInfo = ({ username, onLogout }) => {
-    return (
-        <div className="flex items-center justify-end">
-            <p className="mr-4">Welcome, {username}!</p>
-            <button onClick={onLogout} className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600">
-                Logout
-            </button>
-        </div>
-    );
-};
-const Dashboard = () => {
-    const [username, setUsername] = useState('');
-    const [title, setTitle] = useState('');
-    const [question, setQuestion] = useState('');
-    const [reply, setReply] = useState('');
+const Discussion = () => {
+    const [username, setUsername] = useState("");
+    const [title, setTitle] = useState("");
+    const [question, setQuestion] = useState("");
+    const [reply, setReply] = useState("");
     const [posts, setPosts] = useState([]);
-    const [questionError, setQuestionError] = useState('');
-    const [replyError, setReplyError] = useState('');
-    const [showReplyIndex, setShowReplyIndex] = useState(-1);
-    const [showAllRepliesIndex, setShowAllRepliesIndex] = useState(-1);
+    const [questionError, setQuestionError] = useState("");
+
+    // Load liked posts from local storage
+    const [likedPosts, setLikedPosts] = useState(() => {
+        const storedLikedPosts = localStorage.getItem("likedPosts");
+        return storedLikedPosts ? JSON.parse(storedLikedPosts) : {};
+    });
+
+    // Save liked posts to local storage
+    useEffect(() => {
+        localStorage.setItem("likedPosts", JSON.stringify(likedPosts));
+    }, [likedPosts]);
 
     const handlePostQuestion = () => {
         if (!username || !title || !question) {
-            setQuestionError('Please enter username, title, and description');
+            setQuestionError("Please enter username, title, and question");
             return;
         }
 
         const newPost = {
+            id: posts.length + 1,
             username: username,
             title: title,
             question: question,
-            date: new Date(),
-            likes: 0,
+            date: new Date().toLocaleString(),
             replies: [],
-            showReplyTextarea: false
+            showReplyTextarea: false,
+            showAllReplies: false,
         };
-        setPosts([...posts, newPost]);
-        setUsername('');
-        setTitle('');
-        setQuestion('');
-        setQuestionError('');
+        setPosts([newPost, ...posts]);
+        setUsername("");
+        setTitle("");
+        setQuestion("");
+        setQuestionError("");
     };
 
-    const handlePostReply = (postIndex, replyToIndex = null) => {
-        if (!reply) {
-            setReplyError('Please enter a reply');
-            return;
-        }
-
-        const updatedPosts = [...posts];
-        if (replyToIndex !== null) {
-            updatedPosts[postIndex].replies[replyToIndex].replies.push({
-                username: username,
-                reply: reply,
-                likes: 0,
-                replies: [] // nested replies
-            });
-        } else {
-            updatedPosts[postIndex].replies.push({
-                username: username,
-                reply: reply,
-                likes: 0,
-                replies: [] // nested replies
-            });
-        }
-        setPosts(updatedPosts);
-        setReply('');
-        setReplyError('');
-    };
-
-    const handleLike = (postIndex, replyIndex) => {
-        const updatedPosts = [...posts];
-        if (typeof replyIndex === 'undefined') {
-            updatedPosts[postIndex].likes += updatedPosts[postIndex].liked ? -1 : 1;
-            updatedPosts[postIndex].liked = !updatedPosts[postIndex].liked;
-        } else {
-            updatedPosts[postIndex].replies[replyIndex].likes += updatedPosts[postIndex].replies[replyIndex].liked ? -1 : 1;
-            updatedPosts[postIndex].replies[replyIndex].liked = !updatedPosts[postIndex].replies[replyIndex].liked;
-        }
+    const handleReply = (postId) => {
+        const updatedPosts = posts.map((post) =>
+            post.id === postId ? { ...post, showReplyTextarea: true } : post
+        );
         setPosts(updatedPosts);
     };
 
-    const timeAgo = (time) => {
-        const currentTime = new Date();
-        const elapsedTime = currentTime - new Date(time);
-        const minutes = Math.round(elapsedTime / (1000 * 60));
-
-        return `${minutes} minutes ago`;
+    const handlePostReply = (postId) => {
+        const updatedPosts = posts.map((post) => {
+            if (post.id === postId) {
+                return {
+                    ...post,
+                    replies: [
+                        ...post.replies,
+                        {
+                            id: post.replies.length + 1,
+                            username: username,
+                            message: reply,
+                            date: new Date().toLocaleString(),
+                            likes: 0, // Set default like count to 0
+                        },
+                    ],
+                    showReplyTextarea: false,
+                };
+            } else {
+                return post;
+            }
+        });
+        setPosts(updatedPosts);
+        setReply("");
     };
 
-    const toggleShowReplyTextarea = (index) => {
-        const updatedPosts = [...posts];
-        updatedPosts[index].showReplyTextarea = !updatedPosts[index].showReplyTextarea;
+    const handleLikeReply = (postId, replyId) => {
+        const isLiked = likedPosts[postId] && likedPosts[postId][replyId];
+        const updatedLikedPosts = {
+            ...likedPosts,
+            [postId]: { ...likedPosts[postId], [replyId]: !isLiked },
+        };
+        setLikedPosts(updatedLikedPosts);
+
+        const updatedPosts = posts.map((post) => {
+            if (post.id === postId) {
+                const updatedReplies = post.replies.map((reply) => {
+                    if (reply.id === replyId) {
+                        return { ...reply, likes: isLiked ? 0 : 1 };
+                    } else {
+                        return reply;
+                    }
+                });
+                return { ...post, replies: updatedReplies };
+            } else {
+                return post;
+            }
+        });
         setPosts(updatedPosts);
     };
 
-    const toggleShowAllReplies = (index) => {
-        setShowAllRepliesIndex(showAllRepliesIndex === index ? -1 : index);
+    const toggleAllReplies = (postId) => {
+        const updatedPosts = posts.map((post) => {
+            if (post.id === postId) {
+                return { ...post, showAllReplies: !post.showAllReplies };
+            } else {
+                return post;
+            }
+        });
+        setPosts(updatedPosts);
     };
-    const handleLogout = () => {
-        // Implement your logout logic here
-        // For example, clear user session or redirect to logout page
-        // For now, just reset the username
-        setUsername('');
-    };
-    return (<>
-        {username && (
-            <div className="max-w-lg mx-2 mt-4 px-2">
-                <UserInfo username={username} onLogout={handleLogout} />
-            </div>
-        )}
-        <div className="max-w-lg mx-2 mt-8 px-2">
-            <h2 className="text-3xl font-bold mb-4">Discussion Forum</h2>
-            <div className="flex flex-col space-y-4">
-                <div>
-                    <input
-                        type="text"
-                        placeholder="Your Name"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        className="w-full border border-gray-300 rounded-md px-3 py-2"
-                    />
-                </div>
-                <div>
-                    <input
-                        type="text"
-                        placeholder="Discussion Title"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        className="w-full border border-gray-300 rounded-md px-3 py-2"
-                    />
-                </div>
-                <div>
-                    <textarea
-                        placeholder="Your Question"
-                        value={question}
-                        onChange={(e) => setQuestion(e.target.value)}
-                        className="w-full border border-gray-300 rounded-md px-3 py-2"
-                    ></textarea>
-                </div>
-                <button
-                    onClick={handlePostQuestion}
-                    className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-                >
-                    Post Question
-                </button>
-                {questionError && <p className="text-red-500 mt-2">{questionError}</p>}
-            </div>
 
-            <div className="mt-8">
-                <h2 className="text-lg font-semibold mb-4">Recent Posts</h2>
-                {posts.map((post, index) => (
-                    <div key={index} className="mb-4 bg-white border border-gray-300 p-4 rounded-md">
-                        <p className="text-gray-600 mb-2">Posted by: {post.username}</p>
-                        <h3 className="text-lg font-semibold mb-2">{post.title}</h3>
-                        <p className="mb-2">{post.question}</p>
+
+    return (
+        <div className="font-poppins">
+            <h1 className="text-3xl font-bold p-4 ml-2">Discussion</h1>
+            <hr className="h-px bg-black border-0 mx-4"></hr>
+            <div className="flex justify-between mt-3">
+
+                <div className="w-1/2 mx-4 mt-20">
+                    <div className="bg-white shadow-md rounded-md p-4 mb-4">
                         <div className="flex items-center mb-2">
-                            <button
-                                onClick={() => handleLike(index)}
-                                className={`flex items-center text-red-500 mr-2 ${post.liked ? 'fill-current' : 'stroke-current'} hover:text-red-700 focus:outline-none`}
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="none">
-                                    <path d="M10 18l-1.45-1.34C3.65 12.52 1 10.12 1 7.5 1 5.5 2.5 4 4.5 4c1.54 0 2.91.99 3.5 2.36C8.09 4.99 9.46 4 11 4c2 0 3.5 1.5 3.5 3.5 0 2.62-2.65 5.02-8.55 9.16L10 18z" stroke="currentColor" />
-                                </svg>
-                                {post.likes}
-                            </button>
-                            <p>{timeAgo(post.date)}</p>
+                            <img
+                                src="https://www.pngitem.com/pimgs/m/20-203432_profile-icon-png-image-free-download-searchpng-ville.png"
+                                alt="User Icon"
+                                className="w-8 h-8 mr-2"
+                            />
+                            <p className="text-lg font-semibold">{username}</p>
                         </div>
+                        <input
+                            type="text"
+                            placeholder="Username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            className="w-full border border-gray-300 rounded-md px-3 py-2 mb-2"
+                        />
+                        <input
+                            type="text"
+                            placeholder="Title"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            className="w-full border border-gray-300 rounded-md px-3 py-2 mb-2"
+                        />
+                        <textarea
+                            placeholder="Your Question"
+                            value={question}
+                            onChange={(e) => setQuestion(e.target.value)}
+                            className="w-full border border-gray-300 rounded-md px-3 py-2 mb-2"
+                        ></textarea>
                         <button
-                            onClick={() => toggleShowReplyTextarea(index)}
-                            className="bg-blue-500 text-white px-3 py-1 rounded-md mt-2 hover:bg-blue-600"
+                            onClick={handlePostQuestion}
+                            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
                         >
-                            {post.showReplyTextarea ? "Cancel Reply" : "Add Comment"}
+                            Submit
                         </button>
-                        {post.showReplyTextarea &&
-                            <div className="mt-2">
-                                <textarea
-                                    placeholder="Your Reply"
-                                    value={reply}
-                                    onChange={(e) => setReply(e.target.value)}
-                                    className="w-full border border-gray-300 rounded-md px-3 py-2"
-                                ></textarea>
-                                <button
-                                    onClick={() => handlePostReply(index)}
-                                    className="bg-blue-500 text-white px-3 py-1 rounded-md mt-2 hover:bg-blue-600"
-                                >
-                                    Post Reply
-                                </button>
-                                {replyError && <p className="text-red-500 mt-2">{replyError}</p>}
-                            </div>
-                        }
-                        {post.replies.length > 0 &&
-                            <div className="mt-4">
-                                <h4 className="text-lg font-semibold mb-2">Comments:</h4>
-                                {post.replies.map((reply, replyIndex) => (
-                                    <div key={replyIndex} className="flex items-center mb-2">
-                                        <p className="text-gray-600 mr-2">{reply.username}</p>
-                                        <p>{reply.reply}</p>
+                        {questionError && (
+                            <p className="text-red-500 mt-2">{questionError}</p>
+                        )}
+                    </div>
+                </div>
+                <div className="mx-4 w-1/2">
+                    <div className="h-full overflow-y-auto pb-2" style={{ maxHeight: 'calc(100vh - 8rem)' }}>
+                        {posts.map((post) => (
+                            <div
+                                key={post.id}
+                                className="bg-white shadow-md rounded-md p-4 mb-4"
+                            >
+                                <div className="bg-blue-100 rounded-md px-4 py-2 mb-4">
+                                    <p className="text-gray-600 mb-2">
+                                        Posted by: {post.username}
+                                    </p>
+                                    <p className="text-gray-600 mb-2">Date: {post.date}</p>
+                                    <h3 className="text-lg font-semibold mb-2">Title :{post.title}</h3>
+                                    <p className="text-gray-600 mb-2">Question: {post.question}</p>
+                                </div>
+                                {post.showReplyTextarea && (
+                                    <div className="mb-2">
+                                        <textarea
+                                            placeholder="Your Reply"
+                                            value={reply}
+                                            onChange={(e) => setReply(e.target.value)}
+                                            className="w-full border border-gray-300 rounded-md px-3 py-2 mb-2"
+                                        ></textarea>
                                         <button
-                                            onClick={() => toggleShowReplyTextarea(index)}
-                                            className="bg-blue-500 text-white px-3 py-1 rounded-md ml-auto hover:bg-blue-600"
+                                            onClick={() => handlePostReply(post.id)}
+                                            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
                                         >
-                                            Reply
+                                            Post Reply
                                         </button>
                                     </div>
-                                ))}
-                                {/* Dropdown menu to hide post */}
-                                <div className="relative inline-block ml-2">
-                                    <button className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 rounded-md">
-                                        Options
-                                    </button>
-                                    <div className="hidden absolute z-10 mt-2 w-48 bg-white shadow-lg rounded-md">
-                                        <div className="py-1">
-                                            <button className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
-                                                Hide Comment
-                                            </button>
+                                )}
+                                <button
+                                    onClick={() => handleReply(post.id)}
+                                    className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                                >
+                                    Reply
+                                </button>
+                                <div className="mt-4">
+                                    {post.replies.slice(0, 2).map((reply) => (
+                                        <div
+                                            key={reply.id}
+                                            className="border-t border-gray-300 pt-4"
+                                        >
+                                            <div className="flex items-center">
+                                                <img
+                                                    src="/images/user.png"
+                                                    alt="User Icon"
+                                                    className="w-6 h-6 mr-2"
+                                                />
+                                                <p className="text-gray-600">{reply.username}</p>
+                                                <button
+
+
+                                                    onClick={() => handleLikeReply(post.id, reply.id)}
+                                                    className={`ml-auto bg-gray-200 px-2 py-1 rounded-full flex items-center ${likedPosts[post.id] &&
+                                                        likedPosts[post.id][reply.id]
+                                                        }`}
+                                                >
+                                                    <FaHeart className="text-red-500 mr-1" />
+                                                    <span className="text-red-500">{reply.likes}</span>
+                                                </button>
+                                            </div>
+                                            <p className="text-gray-600">Date: {reply.date}</p>
+                                            <p>{reply.message}</p>
                                         </div>
-                                    </div>
+                                    ))}
+                                    {post.replies.length > 2 && (
+                                        <button
+                                            onClick={() => toggleAllReplies(post.id)}
+                                            className="text-blue-500 mt-2 cursor-pointer"
+                                        >
+                                            {post.showAllReplies ? "Hide all Replies" : "Show all Replies"}
+                                        </button>
+                                    )}
+                                    {post.showAllReplies &&
+                                        post.replies.slice(2).map((reply) => (
+                                            <div
+                                                key={reply.id}
+                                                className="border-t border-gray-300 pt-4"
+                                            >
+                                                <div className="flex items-center">
+                                                    <img
+                                                        src="/images/user.png"
+                                                        alt="User Icon"
+                                                        className="w-6 h-6 mr-2"
+                                                    />
+                                                    <p className="text-gray-600">{reply.username}</p>
+                                                    <button
+                                                        onClick={() =>
+                                                            handleLikeReply(post.id, reply.id)
+                                                        }
+                                                        className={`ml-auto bg-gray-200 px-2 py-1 rounded-full flex items-center ${likedPosts[post.id] &&
+                                                            likedPosts[post.id][reply.id]
+                                                            }`}
+                                                    >
+                                                        <FaHeart className="text-red-500 mr-1" />
+                                                        <span className="text-red-500">{reply.likes}</span>
+                                                    </button>
+                                                </div>
+                                                <p className="text-gray-600">Date: {reply.date}</p>
+                                                <p>{reply.message}</p>
+                                            </div>
+                                        ))}
                                 </div>
                             </div>
-                        }
+                        ))}
                     </div>
-                ))}
+                </div>
             </div>
-        </div>
-    </>);
+        </div >
+    );
 };
 
-export default Dashboard;
+export default Discussion;

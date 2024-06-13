@@ -61,7 +61,7 @@ const Register = () => {
     };
 
     return (
-        <div style={{ maxWidth: '400px', margin: '0 auto' }}>
+        <div style={{ maxWidth: '400px', margin: '15px auto' }}>
             <h2 style={{ fontSize: '1.5em', marginBottom: '20px' }}>Register</h2>
             {showToast && (
                 <div className="toast show" role="alert" aria-live="assertive" aria-atomic="true" style={{ position: 'fixed', bottom: '20px', right: '20px', zIndex: '1', minWidth: '300px', borderRadius: '8px' }}>

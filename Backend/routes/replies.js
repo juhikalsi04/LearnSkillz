@@ -7,26 +7,36 @@ const fetchPost = require("../middleware/fetchPost");
 const fetchUser = require("../middleware/fetchUser");
 const router = express.Router();
 
-router.post('/', fetchUser, fetchPost, async (req, res) => {
-    try {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+router.post(
+    '/:postId',
+    fetchUser,
+    fetchPost,
+    [
+        body('comment', 'Comment is required').not().isEmpty(),
+    ],
+    async (req, res) => {
+        try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ errors: errors.array() });
+            }
+
+            const { comment } = req.body;
+            const reply = new Reply({
+                comment,
+                author: req.user.id,
+                post: req.post.id,
+            });
+
+            const saveReply = await reply.save();
+            res.send(saveReply);
+        } catch (error) {
+            console.error(error.message);
+            res.status(500).send("Some error occurred");
         }
-
-        const { comment } = req.body;
-        const reply = new Reply({
-            comment, author: req.user.id, post: req.post.id
-        })
-        const saveReply = await reply.save()
-        res.send(saveReply)
-
-
-    } catch (error) {
-        console.error(error.message)
-        res.status(500).send("some error occured")
     }
-})
+);
+
 // Get all replies for a particular post
 router.get('/:postId', async (req, res) => {
     try {

@@ -16,6 +16,8 @@ import Company from './components/pages/Company';
 import Aptitude from './components/pages/Aptitude';
 import Reasoning from './components/pages/Reasoning';
 import Verbal from './components/pages/Verbal'
+import PostList from './components/PostList';
+import ViewPost from './components/ViewPost';
 
 function App() {
   return (
@@ -35,6 +37,10 @@ function App() {
             <Route path="/aptitude" element={<Aptitude />} />
             <Route path="/reasoning" element={<Reasoning />} />
             <Route path="/verbal" element={<Verbal />} />
+            <Route path="/postlist" element={<PostList />} />
+            <Route path="/post/:postId" element={<ViewPost />} />
+            {/* <Route path="/post/:postId" element={<ViewPost />} /> */}
+
             {/* Add a route for SampleTest with the test number parameter */}
             <Route path="api/onlinetest/sampletest/:testNo" element={<SampleTest />} />
           </Routes>

@@ -46,9 +46,9 @@ const Discussion = () => {
 
             {showLogin && <Login />}
             {showRegister && <Register />}
+
         </div>
     );
 };
 
 export default Discussion;
-

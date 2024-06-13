@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 
-const Reasoning = () => {
+const Practice = () => {
     const [questionsData, setQuestionsData] = useState([]);
     const [selectedOptions, setSelectedOptions] = useState({});
     const [showAnswer, setShowAnswer] = useState({});
+    const [answerSelected, setAnswerSelected] = useState({});
 
     useEffect(() => {
         const fetchData = async () => {
@@ -23,28 +24,43 @@ const Reasoning = () => {
     }, []);
 
     const handleOptionChange = (questionIndex, optionIndex) => {
+        if (answerSelected[questionIndex]) return;
+
         setSelectedOptions({
             ...selectedOptions,
             [questionIndex]: optionIndex,
         });
+
+        setAnswerSelected({
+            ...answerSelected,
+            [questionIndex]: true,
+        });
+
+        // Check if the selected option is incorrect and mark the question
+        if (questionsData[questionIndex].correctAnswer !== optionIndex) {
+            markQuestion(questionIndex, false);
+        } else {
+            markQuestion(questionIndex, true);
+        }
     };
 
-    const handleShowAnswer = (questionIndex) => {
+    const markQuestion = (questionIndex, isCorrect) => {
         setShowAnswer({
             ...showAnswer,
-            [questionIndex]: true,
+            [questionIndex]: isCorrect,
         });
     };
 
     const handleReset = () => {
         setSelectedOptions({});
         setShowAnswer({});
+        setAnswerSelected({});
     };
 
     return (
         <>
             <div className="flex justify-between items-center mb-8">
-                <h2 className="text-xl font-bold ml-4 font-poppins">Reasoning Questions</h2>
+                <h2 className="text-xl font-bold ml-4 font-poppins">Verbal Questions</h2>
                 <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 mt-5 mr-4"
                     onClick={handleReset}
@@ -53,95 +69,55 @@ const Reasoning = () => {
                 </button>
             </div>
             <div className="container mx-auto font-poppins ml-4">
-                <table
-                    style={{
-                        width: "100%",
-                        borderCollapse: "collapse",
-                        marginTop: "20px",
-                    }}
-                >
-                    <thead>
-                        <tr>
-                            <th
-                                style={{
-                                    borderBottom: "1px solid #ddd",
-                                    padding: "8px",
-                                    textAlign: "left",
-                                }}
-                            >
-                                Question
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {questionsData.map((questionObj, index) => (
-                            <React.Fragment key={index}>
-                                <tr>
-                                    <td
-                                        style={{
-                                            borderBottom: "1px solid #ddd",
-                                            padding: "8px",
-                                            textAlign: "left",
-                                        }}
-                                    >
-                                        {questionObj.question}
-                                    </td>
-                                </tr>
+                <ul style={{ listStyleType: "none", padding: 0 }}>
+                    {questionsData.map((questionObj, index) => (
+                        <li key={index} style={{ marginBottom: "20px" }}>
+                            <p style={{ fontSize: "18px", marginBottom: "10px" }}>{questionObj.question}</p>
+                            <ul style={{ listStyleType: "none", padding: 0 }}>
                                 {questionObj.options.map((option, optionIndex) => (
-                                    <tr key={`${index}-${optionIndex}`}>
-                                        <td
-                                            style={{
-                                                borderBottom: "1px solid #ddd",
-                                                padding: "8px",
-                                                textAlign: "left",
-                                            }}
-                                        >
-                                            <input
-                                                type="radio"
-                                                id={`option-${index}-${optionIndex}`}
-                                                name={`question-${index}`}
-                                                checked={selectedOptions[index] === optionIndex}
-                                                onChange={() => handleOptionChange(index, optionIndex)}
-                                            />
-                                            <label
-                                                htmlFor={`option-${index}-${optionIndex}`}
-                                                style={{ marginLeft: "8px" }}
-                                            >
-                                                {option}
-                                            </label>
-                                        </td>
-                                    </tr>
-                                ))}
-                                <tr>
-                                    <td
+                                    <li
+                                        key={`${index}-${optionIndex}`}
                                         style={{
-                                            borderBottom: "1px solid #ddd",
-                                            padding: "8px",
-                                            textAlign: "left",
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            height: "70px",
+                                            paddingLeft: "15px",
+                                            border: '1px solid black',
+                                            borderRadius: '8px',
+                                            marginBottom: "20px",
+                                            fontSize: "20px",
+                                            cursor: "pointer",
+                                            backgroundColor: showAnswer[index] !== undefined && questionObj.correctAnswer === optionIndex ? 'lightgreen' :
+                                                (selectedOptions[index] === optionIndex ? (questionObj.correctAnswer === optionIndex ? 'lightgreen' : 'lightcoral') : 'white'),
+                                            borderColor: showAnswer[index] !== undefined && questionObj.correctAnswer === optionIndex ? 'green' :
+                                                (selectedOptions[index] === optionIndex ? (questionObj.correctAnswer === optionIndex ? 'green' : 'red') : 'black'),
                                         }}
+                                        onClick={() => handleOptionChange(index, optionIndex)}
+                                        disabled={answerSelected[index]}
                                     >
-                                        {!showAnswer[index] && (
-                                            <button
-                                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 mr-4"
-                                                onClick={() => handleShowAnswer(index)}
-                                            >
-                                                Show Answer
-                                            </button>
-                                        )}
-                                        {showAnswer[index] && (
-                                            <p className="text-xl font-semibold">
-                                                Correct Answer: {questionObj.correctAnswer}
-                                            </p>
-                                        )}
-                                    </td>
-                                </tr>
-                            </React.Fragment>
-                        ))}
-                    </tbody>
-                </table>
+                                        {option}
+                                    </li>
+                                ))}
+                            </ul>
+                            {showAnswer[index] !== undefined && (
+                                <p className="text-xl font-semibold" style={{ color: showAnswer[index] ? 'green' : 'red' }}>
+                                    {showAnswer[index] ? "Well done! You got the right answer." : `Wrong answer! Correct answer is ${questionObj.options[questionObj.correctAnswer]}`}
+                                </p>
+                            )}
+                            {!answerSelected[index] && (
+                                <button
+                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 mr-4"
+                                    onClick={() => handleOptionChange(index, -1)}
+                                >
+                                    Show Answer
+                                </button>
+                            )}
+                        </li>
+                    ))}
+                </ul>
             </div>
         </>
     );
 };
 
-export default Reasoning;
+export default Practice;

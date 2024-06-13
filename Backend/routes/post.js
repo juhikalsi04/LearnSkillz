@@ -7,15 +7,7 @@ var jwt = require('jsonwebtoken');
 const JWT_SECRET = 'secret';
 
 
-// router.post('/', async (req, res) => {
-//     let post = await Post.create({
-//         title: req.body.title,
-//         question: req.body.question,
-//         author: req.body.author
-//     })
-//     res.json(post)
-// })
-// get all posts GET /api/discussion/post/allpost
+
 
 router.get('/allpost', async (req, res) => {
     try {
@@ -47,22 +39,35 @@ router.post('/addpost', fetchUser, [
 
         const { title, question, tag } = req.body;
         const post = new Post({
-            title, question, tag, user: req.user.id
-        })
-        const savedPost = await post.save()
-        // res.send(savedPost)
+            title,
+            question,
+            tag,
+            user: req.user.id // Assigning the user's name to the user field
+        });
+        const savedPost = await post.save();
 
-        const data = {
-            post: {
-                id: post.id
-            }
-        }
-        const postToken = jwt.sign(data, JWT_SECRET);
-        res.json({ postToken, savedPost })
+
+        res.json(savedPost);
 
     } catch (error) {
-        console.error(error.message)
-        res.status(500).send("some error occured")
+        console.error(error.message);
+        res.status(500).send("some error occurred");
     }
-})
+});
+
+router.get('/:id', async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.id);
+        if (!post) {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+        res.json(post);
+    } catch (error) {
+        console.error(error.message);
+        if (error.kind === 'ObjectId') {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+        res.status(500).send('Server error');
+    }
+});
 module.exports = router
